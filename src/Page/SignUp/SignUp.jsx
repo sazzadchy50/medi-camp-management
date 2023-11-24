@@ -8,13 +8,16 @@ import { AuthContext } from "../../Provider/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import SocialLogin from "../../Components/Shared/SocialLogin";
+
+import useAuth from "../../Hook/useAuth";
 // import useAxiosPublic from "../../Hook/useAxiosPublic";
 
 
 const SignUp = () => {
   const [disabled, setDisabled] = useState(true);
   const [password, setPassword] = useState("");
-  const { createUser, updateUserProfile } = useContext(AuthContext);
+//   const { createUser, updateUserProfile } = useContext(AuthContext);
+  const { createUser, updateUserProfile } = useAuth()
 //   const axiosPublic = useAxiosPublic()
   const navigate = useNavigate();
 //   useEffect(() => {
@@ -74,11 +77,11 @@ const SignUp = () => {
         console.log("signUp successfully", loggedUser);
         updateUserProfile(name, photo)
         .then(() => {
-          const userInfo ={
-            name: name,
-            email: email,
-            photo: photo
-          }
+        //   const userInfo ={
+        //     name: name,
+        //     email: email,
+        //     photo: photo
+        //   }
 
         //   axiosPublic.post('/users', userInfo)
         //   .then(res => {
@@ -176,8 +179,8 @@ const SignUp = () => {
               </div>
              
               <div className="form-control mt-6">
-                <button disabled={disabled} className="btn btn-primary">
-                  Login
+                <button  className="btn btn-primary">
+                  Sign Up
                 </button>
               </div>
               <p className=" p-5">
