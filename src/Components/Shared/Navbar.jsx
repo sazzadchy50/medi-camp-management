@@ -1,6 +1,6 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import useAuth from "../../Hook/useAuth";
-
+import logo from "../../../src/assets/cover.png"
 // import useCart from "../../Hook/useCart";
 // import useAdmin from "../../Hook/useAdmin";
 
@@ -62,7 +62,9 @@ const Navbar = () => {
   return (
     <div className="navbar bg-base-100 flex justify-between">
       <div className="">
-        <a className="btn btn-ghost text-xl">daisyUI</a>
+        <Link>
+        <img src={logo} alt="" />
+        </Link>
       </div>
       <div className="hidden md:block">
         <ul className="flex gap-5 ">{navMenu}</ul>
