@@ -5,6 +5,7 @@ import Home from "../Page/Home/Home";
 import Login from "../Page/Login/Login";
 import SignUp from "../Page/SignUp/SignUp";
 import DashboardLayout from "../Layout/DashboardLayout";
+import AddCamp from "../Page/Dashboard/AddCamp/AddCamp";
 
 
 
@@ -42,7 +43,8 @@ export const router = createBrowserRouter([
 
             //organizer route
             {
-                path: 'add-a-camp'
+                path: 'add-a-camp',
+                element: <AddCamp/>
             }
         ]
     }
