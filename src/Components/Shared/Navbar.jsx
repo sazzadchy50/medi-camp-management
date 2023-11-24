@@ -16,10 +16,13 @@ const Navbar = () => {
         <Link to="/">Home</Link>
       </li>
       <li>
-        <Link to="/menu">Our Menu</Link>
+        <Link to="/available-camp">Available Camp</Link>
       </li>
       <li>
-        <Link to="/order/salad">Order Food</Link>
+        <Link to="/dashboard">DashBoard</Link>
+      </li>
+      <li>
+        <Link to="/contactUs">Contact Us</Link>
       </li>
       {/* {user && isAdmin && (
         <li>
@@ -37,7 +40,7 @@ const Navbar = () => {
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5"
             fill="none"
-            viewBox="0 0 24 24"
+        viewBox="0 0 24 24"
             stroke="currentColor"
           >
             <path
@@ -62,8 +65,8 @@ const Navbar = () => {
   return (
     <div className="navbar bg-base-100 flex justify-between">
       <div className="">
-        <Link>
-        <img src={logo} alt="" />
+        <Link to="/">
+        <img className="w-60" src={logo} alt="" />
         </Link>
       </div>
       <div className="hidden md:block">
@@ -81,7 +84,7 @@ const Navbar = () => {
           </label>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+            className="menu menu-sm dropdown-content mt-3 z-[10] p-2 shadow bg-base-100 rounded-box w-52"
           >
 
             <li>
