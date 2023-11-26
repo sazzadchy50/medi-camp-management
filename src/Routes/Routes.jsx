@@ -6,6 +6,8 @@ import Login from "../Page/Login/Login";
 import SignUp from "../Page/SignUp/SignUp";
 import DashboardLayout from "../Layout/DashboardLayout";
 import AddCamp from "../Page/Dashboard/AddCamp/AddCamp";
+import AvailableCamp from "../Page/AvailableCamp/AvailableCamp";
+import CampDetails from "../Page/CampDetails/CampDetails";
 
 
 
@@ -27,6 +29,14 @@ export const router = createBrowserRouter([
             {
                 path: 'signUp',
                 element: <SignUp/>
+            },
+            {
+                path: 'available-camp',
+                element: <AvailableCamp/>
+            },
+            {
+                path: 'camp-details/:id',
+                element: <CampDetails/>
             }
         ]
     },
