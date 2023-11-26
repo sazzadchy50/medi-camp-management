@@ -1,0 +1,25 @@
+@keyframes scaleIn {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(4);
+  }
+}
+
+.divider-container {
+  margin-right: 0px;
+  margin-left: 0px; 
+  width: 300px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.divider {
+  height: 5px;
+
+
+  padding-top: 5px;
+  transform-origin: left center;
+  animation: scaleIn 3s ease-in-out;
+}

@@ -35,8 +35,6 @@ const AddCamp = () => {
           "content-type": "multipart/form-data",
         },
       });
-
-
     if(res.data.success){
       const campData ={
         name: data?.name,
@@ -66,7 +64,6 @@ const AddCamp = () => {
     console.log(res.data);
   };
 
-  const date = new Date()
 
   const handleDateChange = (date) => {
     const timeString = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
