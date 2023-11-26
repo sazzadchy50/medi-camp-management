@@ -5,8 +5,11 @@ import { useParams } from "react-router-dom";
 import { FaWindowClose } from "react-icons/fa";
 
 import "react-datepicker/dist/react-datepicker.css";
+import Swal from "sweetalert2";
+import { useState } from "react";
 const CampDetails = () => {
   const { register, handleSubmit } = useForm();
+  const [submitted, setSubmitted] = useState(false);
  const SecureApi = useSecureApi()
 
   const id = useParams();
@@ -33,6 +36,10 @@ const CampDetails = () => {
   const onSubmit = async (data) => {
 // console.log(data);
 
+    if(submitted){
+      return;
+    }
+    setSubmitted(true)
      const registerData = {
       name: data.name,
       age: parseInt(data.age),
@@ -43,7 +50,19 @@ const CampDetails = () => {
       requirement: data.requirement
      }
 
-     const res = await SecureApi.post('camp-register')
+     const res = await SecureApi.post('camp-register', registerData)
+
+     if(res.data.insertedId){
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: `${data.name} registered successfully`,
+        showConfirmButton: false,
+        timer: 1500
+      });
+      setSubmitted(false)
+     }
+
      console.log(registerData);
   };
   return (
@@ -193,9 +212,9 @@ const CampDetails = () => {
               </div>
               <div className=" text-center">
                 <button className="btn bg-orange-500 text-white"
-                
+                disabled={submitted}
                 >
-                  Registration
+                  {submitted ? "Submitting..." : "Registration"}
                 </button>
               </div>
               <button
