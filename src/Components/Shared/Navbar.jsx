@@ -1,72 +1,50 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import useAuth from "../../Hook/useAuth";
-import logo from "../../../src/assets/cover.png"
-// import useCart from "../../Hook/useCart";
-// import useAdmin from "../../Hook/useAdmin";
+import logo from "../../../src/assets/cover.png";
+
 
 const Navbar = () => {
-  //   const { user, logOut } = useAuth();
-  //   const [isAdmin] = useAdmin();
-  const user = false;
+  const { user, logOut } = useAuth();
+
   const navigate = useNavigate();
 
   const navMenu = (
     <>
       <li>
-        <Link to="/">Home</Link>
+        <NavLink to="/">Home</NavLink>
       </li>
       <li>
-        <Link to="/available-camp">Available Camp</Link>
+        <NavLink to="/available-camp">Available Camp</NavLink>
       </li>
       <li>
-        <Link to="/dashboard">DashBoard</Link>
+        <NavLink to="/dashboard">DashBoard</NavLink>
       </li>
       <li>
-        <Link to="/contactUs">Contact Us</Link>
+        <NavLink to="/contactUs">Contact Us</NavLink>
       </li>
       {/* {user && isAdmin && (
         <li>
-          <Link to="/dashboard/adminHome">Dashboard</Link>
+          <NavLink to="/dashboard/adminHome">Dashboard</NavLink>
         </li>
       )}
       {user && !isAdmin && (
         <li>
-          <Link to="/dashboard/userHome">Dashboard</Link>
+          <NavLink to="/dashboard/userHome">Dashboard</NavLink>
         </li>
       )} */}
-      <li>
-        <Link className="indicator mt-2" to="/dashboard">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
-            fill="none"
-        viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-            />
-          </svg>
-          <span className="badge badge-secondary badge-sm indicator-item">
-            {/* +{cart?.length} */}
-          </span>
-        </Link>
-      </li>
+    
     </>
   );
-  //   const handleLogOut = () => {
-  //     logOut();
-  //     navigate("/login");
-  //   };
+  const handleLogOut = () => {
+    logOut();
+    navigate("/login");
+  };
 
   return (
     <div className="navbar bg-base-100 flex justify-between">
       <div className="">
         <Link to="/">
-        <img className="w-60" src={logo} alt="" />
+          <img className="w-60" src={logo} alt="" />
         </Link>
       </div>
       <div className="hidden md:block">
@@ -78,7 +56,7 @@ const Navbar = () => {
             <div className="w-10 rounded-full">
               <img
                 alt="Tailwind CSS Navbar component"
-                src="/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                src={user?.photoURL? user?.photoURL : null }
               />
             </div>
           </label>
@@ -86,16 +64,14 @@ const Navbar = () => {
             tabIndex={0}
             className="menu menu-sm dropdown-content mt-3 z-[10] p-2 shadow bg-base-100 rounded-box w-52"
           >
-
             <li>
-                <Link to="/login">
-                    LogIn
-                </Link>
-
+              {user ? (
+                <button onClick={handleLogOut}>Log Out</button>
+              ) : (
+                <Link to="/login">LogIn</Link>
+              )}
             </li>
-            <div className=" md:hidden ">
-              {navMenu}
-            </div>
+            <div className=" md:hidden ">{navMenu}</div>
           </ul>
         </div>
       </div>

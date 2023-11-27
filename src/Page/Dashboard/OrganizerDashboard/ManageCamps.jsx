@@ -1,18 +1,13 @@
-import React, { useState } from "react";import useCampData from "../../Hook/useCampData";
+import React from "react";
+import useCampData from "../../../Hook/useCampData";
 import { Link } from "react-router-dom";
-import RegistrationModal from "../../Components/RegistrationModal/RegistrationModal";
 
-const AvailableCamp = () => {
+const ManageCamps = () => {
   const [camp] = useCampData();
- const [fees, setFees] = useState(null)
-  console.log(camp);
-
-
   return (
-    <div className=" p-5 md:p-10">
-     
+    <div>
       <div className="overflow-x-auto">
-        <table className="table w-full" >
+        <table className="table w-full">
           {/* head */}
           <thead>
             <tr>
@@ -22,7 +17,6 @@ const AvailableCamp = () => {
               <th>Date and Time </th>
               <th>Specialized Services</th>
               <th>Targeted Audience</th>
-
               <th>Fees</th>
               <th>Join Camp</th>
               <th>Details</th>
@@ -49,35 +43,24 @@ const AvailableCamp = () => {
                 <td>{item.fees}</td>
 
                 <th>
-                  <button className="btn btn-success text-white btn-xs "
-                  // onClick={()=>setFees(item.fees)}
-                  onClick={() => {
-                    setFees(item.fees)
-                    document.getElementById("my_modal_4").showModal()}}
-                  >
-                    
-                    Join Camp</button>
+                  <button className="btn btn-success text-white btn-xs ">
+                    Join Camp
+                  </button>
                 </th>
                 <th>
-                  <Link to={`/camp-details/${item._id}`}
-                 
-                  >
-                  
-                    <button className="btn btn-info text-white btn-xs"
-                    
-                
-                    >Details</button>
-                  </Link >
+                  <Link to={`/camp-details/${item._id}`}>
+                    <button className="btn btn-info text-white btn-xs">
+                      Details
+                    </button>
+                  </Link>
                 </th>
               </tr>
             ))}
           </tbody>
         </table>
-        
       </div>
-            <RegistrationModal fees={fees}/>
     </div>
   );
 };
 
-export default AvailableCamp;
+export default ManageCamps;

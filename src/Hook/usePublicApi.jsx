@@ -9,4 +9,4 @@ const usePublicApi = () => {
     return axiosPublic
 };
 
-export default usePublicApi;
+export default usePublicApi; 
