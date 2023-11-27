@@ -5,12 +5,13 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useState } from "react";
 import useSecureApi from "../../../Hook/useSecureApi";
 import Swal from "sweetalert2";
+import useAuth from "../../../Hook/useAuth";
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 const AddCamp = () => {
   const [formattedTime, setFormattedTime] = useState("");
-  const { register, handleSubmit, control } = useForm();
-
+  const { register, handleSubmit, control , reset} = useForm();
+  const {user} = useAuth()
   const publicApi = usePublicApi();
   const secureApi = useSecureApi();
   const formatDate = (dateTimeString) => {
@@ -45,17 +46,19 @@ const AddCamp = () => {
         description: data.Description,
         dateTime: formatDate(data.scheduleDate),
         image: res.data.data.display_url,
+        email: user?.email
       };
 
       const campRes = await secureApi.post("/add-a-camp", campData);
       if (campRes.data.insertedId) {
         Swal.fire({
-          position: "top-end",
+          position: "top-middle",
           icon: "success",
           title: `${data.name} added to camp successfully`,
           showConfirmButton: false,
           timer: 1500,
         });
+        reset()
       }
     }
 

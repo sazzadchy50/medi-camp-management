@@ -73,6 +73,13 @@ const PopularCamps = () => {
           </div>
         ))}
       </div>
+      <div className="flex justify-center mt-10">
+        <Link to="available-camp ">
+          <button className="btn ">
+             All Available Camp
+          </button>
+        </Link>
+      </div>
     </div>
   );
 };

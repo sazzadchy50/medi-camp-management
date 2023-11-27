@@ -10,6 +10,7 @@ import AvailableCamp from "../Page/AvailableCamp/AvailableCamp";
 import CampDetails from "../Page/CampDetails/CampDetails";
 import AddCamp from "../Page/Dashboard/OrganizerDashboard/AddCamp";
 import ManageCamps from "../Page/Dashboard/OrganizerDashboard/ManageCamps";
+import ErrorPage from "../Page/Error/ErrorPage";
 
 export const router = createBrowserRouter([
   {
@@ -55,4 +56,8 @@ export const router = createBrowserRouter([
       }
     ],
   },
+  {
+    path:"*",
+    element: <ErrorPage/>
+  }
 ]);

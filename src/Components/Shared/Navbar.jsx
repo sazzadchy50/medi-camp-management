@@ -51,11 +51,13 @@ const Navbar = () => {
         <ul className="flex gap-5 ">{navMenu}</ul>
       </div>
       <div className="flex-none">
-        <div className="dropdown dropdown-end">
+        {
+          user? 
+          <div className="dropdown dropdown-end">
           <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
             <div className="w-10 rounded-full">
               <img
-                alt="Tailwind CSS Navbar component"
+                alt=""
                 src={user?.photoURL? user?.photoURL : null }
               />
             </div>
@@ -65,15 +67,20 @@ const Navbar = () => {
             className="menu menu-sm dropdown-content mt-3 z-[10] p-2 shadow bg-base-100 rounded-box w-52"
           >
             <li>
-              {user ? (
-                <button onClick={handleLogOut}>Log Out</button>
-              ) : (
-                <Link to="/login">LogIn</Link>
-              )}
+            <button onClick={handleLogOut}>Log Out</button>
+              
             </li>
             <div className=" md:hidden ">{navMenu}</div>
           </ul>
-        </div>
+        </div>:
+
+         <Link to="/login">
+         <button className="btn bg-purple-500 text-white">
+                Login
+         </button>
+         </Link>
+        }
+        
       </div>
     </div>
   );

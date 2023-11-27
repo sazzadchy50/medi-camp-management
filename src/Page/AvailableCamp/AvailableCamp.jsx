@@ -1,4 +1,4 @@
-import React, { useState } from "react";import useCampData from "../../Hook/useCampData";
+import { useState } from "react";import useCampData from "../../Hook/useCampData";
 import { Link } from "react-router-dom";
 import RegistrationModal from "../../Components/RegistrationModal/RegistrationModal";
 

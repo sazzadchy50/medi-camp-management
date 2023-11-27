@@ -227,7 +227,7 @@ console.log(email, password, photo, name, role);
                 </Link>
               </p>
             </form>
-            <SocialLogin/>
+        
           </div>
         </div>
       </div>

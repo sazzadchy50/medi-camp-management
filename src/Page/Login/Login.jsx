@@ -83,7 +83,7 @@ const Login = () => {
                 Do not have a account <Link className='text-red-500 font-bold' to='/signUp'>Sign up</Link>
               </p>
               </form>
-             <SocialLogin/>
+          
             </div>
           </div>
         </div>

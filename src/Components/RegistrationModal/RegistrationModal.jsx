@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaWindowClose } from "react-icons/fa"
 import useSecureApi from '../../Hook/useSecureApi';
 import Swal from 'sweetalert2';
 const RegistrationModal = ({fees}) => {
     console.log(fees);
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit , reset} = useForm();
     const [submitted, setSubmitted] = useState(false);
     const SecureApi = useSecureApi()
     const onSubmit = async (data) => {
-        // console.log(data);
+
         
             if(submitted){
               return;
@@ -36,6 +36,7 @@ const RegistrationModal = ({fees}) => {
                 timer: 1500
               });
               setSubmitted(false)
+              reset();
              }
         
              console.log(registerData);
