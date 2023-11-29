@@ -1,23 +1,21 @@
 import { useEffect, useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import {
-  FaAd,
-
-  FaCalendar,
-  
   FaHandHoldingMedical,
   FaHome,
   FaList,
+  FaRegAddressBook,
   FaRegListAlt,
-  FaShoppingCart,
-  FaUser,
+  FaStar,
+ FaUser,
 } from "react-icons/fa";
 
 const DashboardLayout = () => {
   // const [isAdmin] = useAdmin();
   // console.log("admin dashboard:", isAdmin);
-  const isAdmin = false;
-  const participant = true;
+  const isAdmin = true;
+  // const participant = true;
+  const participant = false;
   const healthProfessional = false;
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -41,7 +39,7 @@ const DashboardLayout = () => {
     setIsDrawerOpen(!isDrawerOpen);
   };
   return (
-    <div className="flex h-[100vh]">
+    <div className="flex h-full">
       {/* NEW */}
       {/* <div className="drawer lg:drawer-open "> */}
       <div className={`drawer lg:drawer-open ${isDrawerOpen ? "open" : ""}`}>
@@ -114,15 +112,15 @@ const DashboardLayout = () => {
               </>
             ) : participant ? (
               <>
-                 <li>
+                <li>
                   <NavLink to="/dashboard/participant-profile">
                     <FaUser />
-                     Profile Management
+                    Profile Management
                   </NavLink>
                 </li>
                 <li>
                   <NavLink to="/dashboard/register-camps">
-                    
+                  <FaRegAddressBook />
                     Register Camps
                   </NavLink>
                 </li>
@@ -134,11 +132,10 @@ const DashboardLayout = () => {
                 </li>
                 <li>
                   <NavLink to="/dashboard/feedback-and-ratings">
-                    <FaAd />
+                    <FaStar />
                     Feedback and Ratings
                   </NavLink>
                 </li>
-               
               </>
             ) : healthProfessional ? (
               <>
@@ -147,7 +144,7 @@ const DashboardLayout = () => {
                     <FaUser />
                     Professionals Profile
                   </NavLink>
-                </li>       
+                </li>
               </>
             ) : null}
             <div className="divider"></div>
@@ -157,7 +154,6 @@ const DashboardLayout = () => {
                 Home
               </NavLink>
             </li>
-           
           </ul>
         </div>
       </div>

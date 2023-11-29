@@ -5,8 +5,8 @@ import RegistrationModal from "../../Components/RegistrationModal/RegistrationMo
 const AvailableCamp = () => {
   const [camp] = useCampData();
  const [fees, setFees] = useState(null)
-  console.log(camp);
-
+ const [campId, setCampId] = useState()
+const [campName , setCampName] = useState()
 
   return (
     <div className=" p-5 md:p-10">
@@ -50,9 +50,11 @@ const AvailableCamp = () => {
 
                 <th>
                   <button className="btn btn-success text-white btn-xs "
-                  // onClick={()=>setFees(item.fees)}
+                
                   onClick={() => {
                     setFees(item.fees)
+                    setCampId(item._id)
+                    setCampName(item.name)
                     document.getElementById("my_modal_4").showModal()}}
                   >
                     
@@ -75,7 +77,7 @@ const AvailableCamp = () => {
         </table>
         
       </div>
-            <RegistrationModal fees={fees}/>
+            <RegistrationModal fees={fees} campId={campId} campName={campName} />
     </div>
   );
 };

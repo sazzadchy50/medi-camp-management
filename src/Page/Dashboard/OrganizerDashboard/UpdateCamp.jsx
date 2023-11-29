@@ -1,65 +1,14 @@
-import React, { useEffect, useState } from "react";
-import useCampData from "../../../Hook/useCampData";
-import { Link, useAsyncError, useParams } from "react-router-dom";
-import { Controller, useForm } from "react-hook-form";
+import { useState } from "react";
+import { useForm, Controller } from "react-hook-form";
+
 import { FaWindowClose } from "react-icons/fa";
 import DatePicker from "react-datepicker";
-import UpdateCamp from "./UpdateCamp";
-import { useQuery } from "@tanstack/react-query";
-import usePublicApi from "../../../Hook/usePublicApi";
-import useSecureApi from "../../../Hook/useSecureApi";
-import Swal from "sweetalert2";
-const ManageCamps = () => {
-  const [camp, refetch] = useCampData();
+const UpdateCamp = () => {
   const { register, handleSubmit, reset, control } = useForm();
   const [submitted, setSubmitted] = useState(false);
   const [formattedTime, setFormattedTime] = useState("");
   const [fees, setFees] = useState(null);
   const [campName, setCampName] = useState();
-  const publicApi = usePublicApi()
-  const secureApi = useSecureApi()
-  // const {id} = useParams();
-
-  const handleDelete = (item) =>{
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You want to delete user",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    })
-    .then((result)=> {
-      if(result.isConfirmed){
-         secureApi.delete(`/delete-camp/${item._id}`)
-      .then((res)=>{
-        if(res.data.deletedCount){
-          refetch()
-          Swal.fire({
-            position: "top-middle",
-            icon: "success",
-            title: `${item.name} has been deleted successfully`,
-            showConfirmButton: false,
-            timer: 1000,
-          });
-        }
-      })
-      }
-     
-    })
-    // const { data } = useQuery({
-    //   queryKey:['update-camp', item._id],
-    //   queryFn: async()=>{
-    //     const res = await secureApi(`/delete-camp/${id}`)
-    //     return res.data;
-    //   }
-    // })
-  }
-
-  
-  
-
 
   const formatDate = (dateTimeString) => {
     const options = {
@@ -75,6 +24,7 @@ const ManageCamps = () => {
 
     return new Date(dateTimeString).toLocaleString(undefined, options);
   };
+  console.log(name);
 
   const onSubmit = async (data) => {
     if (submitted) {
@@ -105,7 +55,7 @@ const ManageCamps = () => {
     //   reset();
     //  }
 
-    // console.log(registerData);
+    console.log(registerData);
   };
   const handleDateChange = (date) => {
     const timeString = date.toLocaleTimeString("en-US", {
@@ -117,69 +67,7 @@ const ManageCamps = () => {
   };
   return (
     <div>
-      <div className="overflow-x-auto">
-        <table className="table w-full ">
-          {/* head */}
-          <thead>
-            <tr>
-              <th>image</th>
-              <th>Name</th>
-              <th>Venue Location </th>
-              <th>Date and Time </th>
-              <th>Specialized Services</th>
-              <th>Targeted Audience</th>
-              <th>Fees</th>
-              <th>Join Camp</th>
-              <th>Details</th>
-            </tr>
-          </thead>
-          <tbody>
-            {camp.map((item) => (
-              <tr key={item._id}>
-                <td>
-                  <div className="avatar">
-                    <div className="mask mask-squircle w-12 h-12">
-                      <img
-                        src={item.image}
-                        alt="Avatar Tailwind CSS Component"
-                      />
-                    </div>
-                  </div>
-                </td>
-                <td>{item.name}</td>
-                <td>{item.venueLocation}</td>
-                <td>{item.dateTime}</td>
-                <td>{item.specializedServices}</td>
-                <td>{item.targetedAudience}</td>
-                <td>{item.fees}</td>
-
-                <th>
-                    <button
-                      className="btn btn-success text-white btn-xs "
-                      onClick={() => {
-                        setFees(item.fees);
-                        document.getElementById("my_modal_4").showModal();
-                      }}
-                    >
-                      Update
-                    </button>
-                 
-                </th>
-                <th>
-                
-                    <button className="btn btn-info text-white btn-xs"
-                    onClick={()=>handleDelete(item)}
-                    >
-                      
-                      Delete
-                    </button>
-             
-                </th>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        {/* modal for update */}
+      {/* modal for update */}
       <dialog id="my_modal_4" className="modal">
         <div className="modal-box w-11/12 relative">
           <form onSubmit={handleSubmit(onSubmit)} className=" space-y-6">
@@ -293,6 +181,7 @@ const ManageCamps = () => {
                 placeholder="Comprehensive Description..."
               ></textarea>
             </div>
+
             <div className="from-control w-full">
               <input
                 {...register("image", { required: true })}
@@ -304,19 +193,11 @@ const ManageCamps = () => {
               Update
               {/* <FaUtensils/> */}
             </button>
-            <button
-                className="absolute top-2 right-4"
-                onClick={() => document.getElementById("my_modal_4").close()}
-              >                
-                <FaWindowClose className="text-2xl" />
-              </button>
           </form>
         </div>
       </dialog>
-       
-      </div>
     </div>
   );
 };
 
-export default ManageCamps;
+export default UpdateCamp;

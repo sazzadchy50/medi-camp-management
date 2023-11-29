@@ -23,6 +23,7 @@ const CampDetails = () => {
     },
   });
   const {
+     _id,
     name,
     image,
     venueLocation,
@@ -32,7 +33,7 @@ const CampDetails = () => {
     description,
     fees,
   } = campData;
-  console.log(campData);
+
 
  
   return (
@@ -84,7 +85,7 @@ const CampDetails = () => {
           </div>
         </div>
       </div>
-    <RegistrationModal fees={fees}/>
+    <RegistrationModal fees={fees} campId={_id} campName={name}/>
       
     </div>
   );

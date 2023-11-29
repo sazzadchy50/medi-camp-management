@@ -11,6 +11,7 @@ import CampDetails from "../Page/CampDetails/CampDetails";
 import AddCamp from "../Page/Dashboard/OrganizerDashboard/AddCamp";
 import ManageCamps from "../Page/Dashboard/OrganizerDashboard/ManageCamps";
 import ErrorPage from "../Page/Error/ErrorPage";
+import UpdateCamp from "../Page/Dashboard/OrganizerDashboard/UpdateCamp";
 
 export const router = createBrowserRouter([
   {
@@ -52,12 +53,17 @@ export const router = createBrowserRouter([
       },
       {
         path: "manage-camps",
-        element: <ManageCamps/>
-      }
+        element: <ManageCamps />,
+      },
+      // {
+      //   path: "update-camp/:id",
+      //   element: <UpdateCamp/>
+
+      // }
     ],
   },
   {
-    path:"*",
-    element: <ErrorPage/>
-  }
+    path: "*",
+    element: <ErrorPage />,
+  },
 ]);

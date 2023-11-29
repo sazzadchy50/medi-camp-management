@@ -3,11 +3,13 @@ import { useForm } from 'react-hook-form';
 import { FaWindowClose } from "react-icons/fa"
 import useSecureApi from '../../Hook/useSecureApi';
 import Swal from 'sweetalert2';
-const RegistrationModal = ({fees}) => {
+import useAuth from '../../Hook/useAuth';
+const RegistrationModal = ({fees, campId, campName}) => {
     console.log(fees);
     const { register, handleSubmit , reset} = useForm();
     const [submitted, setSubmitted] = useState(false);
     const SecureApi = useSecureApi()
+    const {user} = useAuth();
     const onSubmit = async (data) => {
 
         
@@ -18,11 +20,15 @@ const RegistrationModal = ({fees}) => {
              const registerData = {
               name: data.name,
               age: parseInt(data.age),
+              email: user?.email,
               gender: data.gender,
               address: data.address,
               phoneNumber: parseInt(data.phoneNumber),
               fees: fees, 
-              requirement: data.requirement
+              requirement: data.requirement,
+              campId : campId,
+              campName: campName
+
              }
         
              const res = await SecureApi.post('camp-register', registerData)
