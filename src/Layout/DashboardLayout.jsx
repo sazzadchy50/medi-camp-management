@@ -127,15 +127,15 @@ const DashboardLayout = () => {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/dashboard/paymentHistory">
+                  <NavLink to="/dashboard/payment-history">
                     <FaList />
                     Payment History
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/dashboard/review">
+                  <NavLink to="/dashboard/feedback-and-ratings">
                     <FaAd />
-                    Add review
+                    Feedback and Ratings
                   </NavLink>
                 </li>
                
