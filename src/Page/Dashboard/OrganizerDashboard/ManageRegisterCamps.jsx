@@ -12,6 +12,7 @@ const ManageRegisterCamps = () => {
     },
   });
   console.log(camp);
+  console.log(camp);
 
   const [fees, setFees] = useState(null);
   const [campId, setCampId] = useState();
