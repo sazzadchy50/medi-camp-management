@@ -66,8 +66,7 @@ const PopularCamps = () => {
                   <button className="btn w-full bg-purple-500 text-white">
                     Details
                   </button>
-                </Link>
-             
+                </Link>             
               </div>
             </div>
           </div>

@@ -40,7 +40,7 @@ const AddCamp = () => {
       const campData = {
         name: data?.name,
         fees: parseInt(data?.Fees),
-        professionals: data.HealthcareProfessionals,
+        professionals: data.healthcareProfessionals,
         specializedServices: data.specializedServices,
         venueLocation: data.venueLocation,
         targetedAudience: data.targetedAudience,

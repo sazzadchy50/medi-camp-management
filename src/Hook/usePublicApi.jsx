@@ -1,12 +1,11 @@
-import axios from 'axios';
-
+import axios from "axios";
 
 const axiosPublic = axios.create({
-    baseURL: "http://localhost:5000/api/v1"
-})
+  baseURL: "https://medi-camp-management-server.vercel.app/api/v1",
+});
 
 const usePublicApi = () => {
-    return axiosPublic
+  return axiosPublic;
 };
 
-export default usePublicApi; 
+export default usePublicApi;

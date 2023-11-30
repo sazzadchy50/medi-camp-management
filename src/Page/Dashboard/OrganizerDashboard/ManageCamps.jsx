@@ -9,6 +9,9 @@ import { useQuery } from "@tanstack/react-query";
 import usePublicApi from "../../../Hook/usePublicApi";
 import useSecureApi from "../../../Hook/useSecureApi";
 import Swal from "sweetalert2";
+import useAuth from "../../../Hook/useAuth";
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 const ManageCamps = () => {
   const [camp, refetch] = useCampData();
   const { register, handleSubmit, reset, control } = useForm();
@@ -16,9 +19,10 @@ const ManageCamps = () => {
   const [formattedTime, setFormattedTime] = useState("");
   const [fees, setFees] = useState(null);
   const [campName, setCampName] = useState();
-  const publicApi = usePublicApi()
-  const secureApi = useSecureApi()
-  // const {id} = useParams();
+  const publicApi = usePublicApi();
+  const secureApi = useSecureApi();
+  const{user} = useAuth()
+
 
   const handleDelete = (item) =>{
     Swal.fire({
@@ -57,7 +61,47 @@ const ManageCamps = () => {
     // })
   }
 
-  
+  //  update camp
+  const  onSubmit = async(data) => {
+ console.log(data);
+    const imageFile = { image: data.image[0] };
+    const res = await publicApi.post(image_hosting_api, imageFile, {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    });
+
+    if (res.data.success) {
+      const campData = {
+        name: data?.name,
+        fees: parseInt(data?.Fees),
+        professionals: data.HealthcareProfessionals,
+        specializedServices: data.specializedServices,
+        venueLocation: data.venueLocation,
+        targetedAudience: data.targetedAudience,
+        description: data.Description,
+        dateTime: formatDate(data.scheduleDate),
+        image: res.data.data.display_url,
+        email: user?.email
+      };
+
+      // const campRes = await secureApi.patch(`/dashboard/update-camp/${data._id}`, campData);
+      // console.log('campRes', campRes);
+      // if (campRes.data.insertedId) {
+      //   Swal.fire({
+      //     position: "top-middle",
+      //     icon: "success",
+      //     title: `${data.name} added to camp successfully`,
+      //     showConfirmButton: false,
+      //     timer: 1500,
+      //   });
+      //   reset()
+      // }
+    }
+  }
+
+
+
   
 
 
@@ -76,37 +120,7 @@ const ManageCamps = () => {
     return new Date(dateTimeString).toLocaleString(undefined, options);
   };
 
-  const onSubmit = async (data) => {
-    if (submitted) {
-      return;
-    }
-    setSubmitted(true);
-    //  const registerData = {
-    //   name: data.name,
-    //   age: parseInt(data.age),
-    //   gender: data.gender,
-    //   address: data.address,
-    //   phoneNumber: parseInt(data.phoneNumber),
-    //   fees: fees,
-    //   requirement: data.requirement
-    //  }
-
-    //  const res = await SecureApi.post('camp-register', registerData)
-
-    //  if(res.data.insertedId){
-    //   Swal.fire({
-    //     position: "top-end",
-    //     icon: "success",
-    //     title: `${data.name} registered successfully`,
-    //     showConfirmButton: false,
-    //     timer: 1500
-    //   });
-    //   setSubmitted(false)
-    //   reset();
-    //  }
-
-    // console.log(registerData);
-  };
+  
   const handleDateChange = (date) => {
     const timeString = date.toLocaleTimeString("en-US", {
       hour: "numeric",
@@ -118,7 +132,7 @@ const ManageCamps = () => {
   return (
     <div>
       <div className="overflow-x-auto">
-        <table className="table w-full ">
+        <table className="table w-full table-pin-rows">
           {/* head */}
           <thead>
             <tr>
@@ -159,6 +173,7 @@ const ManageCamps = () => {
                       onClick={() => {
                         setFees(item.fees);
                         document.getElementById("my_modal_4").showModal();
+                     
                       }}
                     >
                       Update
@@ -183,6 +198,7 @@ const ManageCamps = () => {
       <dialog id="my_modal_4" className="modal">
         <div className="modal-box w-11/12 relative">
           <form onSubmit={handleSubmit(onSubmit)} className=" space-y-6">
+
             <div className="grid grid-cols-1  lg:grid-cols-2 gap-5">
               <div className="form-control w-full ">
                 <label className="label">
