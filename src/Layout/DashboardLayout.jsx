@@ -13,7 +13,7 @@ import useAuth from "../Hook/useAuth";
 
 const DashboardLayout = () => {
   // const [isAdmin] = useAdmin();
-  const { user } = useAuth();
+  
   const organizer = true;
   // const participant = true;
   const participant = false;
