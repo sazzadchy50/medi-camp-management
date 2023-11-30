@@ -12,8 +12,8 @@ import {
 
 const DashboardLayout = () => {
   // const [isAdmin] = useAdmin();
-  // console.log("admin dashboard:", isAdmin);
-  const isAdmin = true;
+
+  const organizer = true;
   // const participant = true;
   const participant = false;
   const healthProfessional = false;
@@ -83,12 +83,12 @@ const DashboardLayout = () => {
           ></label>
           <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
             {/* Sidebar content here */}
-            {isAdmin ? (
+            {organizer ? (
               <>
                 <li>
                   <NavLink to="/dashboard/organizer-profile">
                     <FaUser />
-                    Profile Management
+                    Organizer Profile Management
                   </NavLink>
                 </li>
                 <li>
@@ -115,7 +115,7 @@ const DashboardLayout = () => {
                 <li>
                   <NavLink to="/dashboard/participant-profile">
                     <FaUser />
-                    Profile Management
+                    Participant Profile Management
                   </NavLink>
                 </li>
                 <li>
@@ -142,7 +142,7 @@ const DashboardLayout = () => {
                 <li>
                   <NavLink to="/dashboard/professional-management">
                     <FaUser />
-                    Professionals Profile
+                    Professionals Profile Manager
                   </NavLink>
                 </li>
               </>

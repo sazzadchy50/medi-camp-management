@@ -8,10 +8,11 @@ import "react-datepicker/dist/react-datepicker.css";
 import Swal from "sweetalert2";
 import { useState } from "react";
 import RegistrationModal from "../../Components/RegistrationModal/RegistrationModal";
+import { Helmet } from "react-helmet";
 const CampDetails = () => {
   const { register, handleSubmit } = useForm();
   const [submitted, setSubmitted] = useState(false);
- const SecureApi = useSecureApi()
+  const SecureApi = useSecureApi();
 
   const id = useParams();
   console.log("id", id);
@@ -23,7 +24,7 @@ const CampDetails = () => {
     },
   });
   const {
-     _id,
+    _id,
     name,
     image,
     venueLocation,
@@ -34,10 +35,11 @@ const CampDetails = () => {
     fees,
   } = campData;
 
-
- 
   return (
     <div className="p-5 md:p-10">
+      <Helmet>
+        <title>medi-camp-management | camp-Details</title>
+      </Helmet>
       <div className="card glass ">
         <figure>
           <img
@@ -85,8 +87,7 @@ const CampDetails = () => {
           </div>
         </div>
       </div>
-    <RegistrationModal fees={fees} campId={_id} campName={name}/>
-      
+      <RegistrationModal fees={fees} campId={_id} campName={name} />
     </div>
   );
 };

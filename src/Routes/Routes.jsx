@@ -10,8 +10,10 @@ import AvailableCamp from "../Page/AvailableCamp/AvailableCamp";
 import CampDetails from "../Page/CampDetails/CampDetails";
 import AddCamp from "../Page/Dashboard/OrganizerDashboard/AddCamp";
 import ManageCamps from "../Page/Dashboard/OrganizerDashboard/ManageCamps";
+
 import ErrorPage from "../Page/Error/ErrorPage";
 import UpdateCamp from "../Page/Dashboard/OrganizerDashboard/UpdateCamp";
+import ManageRegisterCamps from "../Page/Dashboard/OrganizerDashboard/manageRegisterCamps";
 
 export const router = createBrowserRouter([
   {
@@ -55,11 +57,19 @@ export const router = createBrowserRouter([
         path: "manage-camps",
         element: <ManageCamps />,
       },
+      {
+        path: "manage-registered-camps",
+      element:<ManageRegisterCamps/>
+      }
       // {
       //   path: "update-camp/:id",
       //   element: <UpdateCamp/>
 
       // }
+
+
+      // participent Route 
+      
     ],
   },
   {

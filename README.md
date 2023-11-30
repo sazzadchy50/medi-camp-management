@@ -9,7 +9,6 @@ features and functionalities
 - Login: The user can log in with email, password, and Google account.
 
 - Responsive: This website is designed to be used with different devices like mobile and tablets.
-
 - Camp register: user can register camp 
 
 - Add camp: Organizer can add camp in add camp page under dashboard.
