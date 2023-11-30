@@ -19,12 +19,13 @@ const ManageCamps = () => {
   const [formattedTime, setFormattedTime] = useState("");
   const [fees, setFees] = useState(null);
   const [campName, setCampName] = useState();
+  const [campId, setCampId] = useState();
+
   const publicApi = usePublicApi();
   const secureApi = useSecureApi();
-  const{user} = useAuth()
+  const { user } = useAuth();
 
-
-  const handleDelete = (item) =>{
+  const handleDelete = (item) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You want to delete user",
@@ -33,25 +34,22 @@ const ManageCamps = () => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
-    })
-    .then((result)=> {
-      if(result.isConfirmed){
-         secureApi.delete(`/delete-camp/${item._id}`)
-      .then((res)=>{
-        if(res.data.deletedCount){
-          refetch()
-          Swal.fire({
-            position: "top-middle",
-            icon: "success",
-            title: `${item.name} has been deleted successfully`,
-            showConfirmButton: false,
-            timer: 1000,
-          });
-        }
-      })
+    }).then((result) => {
+      if (result.isConfirmed) {
+        secureApi.delete(`/delete-camp/${item._id}`).then((res) => {
+          if (res.data.deletedCount) {
+            refetch();
+            Swal.fire({
+              position: "top-middle",
+              icon: "success",
+              title: `${item.name} has been deleted successfully`,
+              showConfirmButton: false,
+              timer: 1000,
+            });
+          }
+        });
       }
-     
-    })
+    });
     // const { data } = useQuery({
     //   queryKey:['update-camp', item._id],
     //   queryFn: async()=>{
@@ -59,51 +57,50 @@ const ManageCamps = () => {
     //     return res.data;
     //   }
     // })
-  }
+  };
 
   //  update camp
-  const  onSubmit = async(data) => {
- console.log(data);
-    const imageFile = { image: data.image[0] };
-    const res = await publicApi.post(image_hosting_api, imageFile, {
-      headers: {
-        "content-type": "multipart/form-data",
-      },
-    });
+  const onSubmit = async (data) => {
+    if (campId) {
+      const imageFile = { image: data.image[0] };
+      const res = await publicApi.post(image_hosting_api, imageFile, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      });
 
-    if (res.data.success) {
-      const campData = {
-        name: data?.name,
-        fees: parseInt(data?.Fees),
-        professionals: data.HealthcareProfessionals,
-        specializedServices: data.specializedServices,
-        venueLocation: data.venueLocation,
-        targetedAudience: data.targetedAudience,
-        description: data.Description,
-        dateTime: formatDate(data.scheduleDate),
-        image: res.data.data.display_url,
-        email: user?.email
-      };
+      if (res.data.success) {
+        const campData = {
+          name: data?.name,
+          fees: parseInt(data?.Fees),
+          professionals: data.HealthcareProfessionals,
+          specializedServices: data.specializedServices,
+          venueLocation: data.venueLocation,
+          targetedAudience: data.targetedAudience,
+          description: data.Description,
+          dateTime: formatDate(data.scheduleDate),
+          image: res.data.data.display_url,
+          email: user?.email,
+        };
 
-      // const campRes = await secureApi.patch(`/dashboard/update-camp/${data._id}`, campData);
-      // console.log('campRes', campRes);
-      // if (campRes.data.insertedId) {
-      //   Swal.fire({
-      //     position: "top-middle",
-      //     icon: "success",
-      //     title: `${data.name} added to camp successfully`,
-      //     showConfirmButton: false,
-      //     timer: 1500,
-      //   });
-      //   reset()
-      // }
+        const campRes = await secureApi.patch(
+          `/dashboard/update-camp/${campId}`,
+          campData
+        );
+        console.log("campRes", campRes);
+        if (campRes.data.insertedId) {
+          Swal.fire({
+            position: "top-middle",
+            icon: "success",
+            title: `${data.name} added to camp successfully`,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          reset();
+        }
+      }
     }
-  }
-
-
-
-  
-
+  };
 
   const formatDate = (dateTimeString) => {
     const options = {
@@ -120,7 +117,6 @@ const ManageCamps = () => {
     return new Date(dateTimeString).toLocaleString(undefined, options);
   };
 
-  
   const handleDateChange = (date) => {
     const timeString = date.toLocaleTimeString("en-US", {
       hour: "numeric",
@@ -168,168 +164,165 @@ const ManageCamps = () => {
                 <td>{item.fees}</td>
 
                 <th>
-                    <button
-                      className="btn btn-success text-white btn-xs "
-                      onClick={() => {
-                        setFees(item.fees);
-                        document.getElementById("my_modal_4").showModal();
-                     
-                      }}
-                    >
-                      Update
-                    </button>
-                 
+                  <button
+                    className="btn btn-success text-white btn-xs "
+                    onClick={() => {
+                      setFees(item.fees);
+                      document.getElementById("my_modal_4").showModal();
+                      setCampId(item._id);
+                    }}
+                  >
+                    Update
+                  </button>
                 </th>
                 <th>
-                
-                    <button className="btn btn-info text-white btn-xs"
-                    onClick={()=>handleDelete(item)}
-                    >
-                      
-                      Delete
-                    </button>
-             
+                  <button
+                    className="btn btn-info text-white btn-xs"
+                    onClick={() => handleDelete(item)}
+                  >
+                    Delete
+                  </button>
                 </th>
               </tr>
             ))}
           </tbody>
         </table>
         {/* modal for update */}
-      <dialog id="my_modal_4" className="modal">
-        <div className="modal-box w-11/12 relative">
-          <form onSubmit={handleSubmit(onSubmit)} className=" space-y-6">
+        <dialog id="my_modal_4" className="modal">
+          <div className="modal-box w-11/12 relative">
+            <form onSubmit={handleSubmit(onSubmit)} className=" space-y-6">
+              <div className="grid grid-cols-1  lg:grid-cols-2 gap-5">
+                <div className="form-control w-full ">
+                  <label className="label">
+                    <span className="label-text">Camp name*</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Camp name"
+                    {...register("name", { required: true })}
+                    className="input input-bordered w-full"
+                  />
+                </div>
+                <div className="form-control w-full">
+                  <label className="label">
+                    <span className="label-text">Camp Fees*</span>
+                  </label>
+                  <input
+                    type="number"
+                    placeholder="Camp Fees"
+                    {...register("Fees", { required: true })}
+                    className="input input-bordered w-full "
+                    required
+                  />
+                </div>
+                <div className="form-control w-full ">
+                  <label className="label">
+                    <span className="label-text">Venue Location*</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="venue Location"
+                    {...register("venueLocation", { required: true })}
+                    className="input input-bordered w-full "
+                    required
+                  />
+                </div>
+                <div className="form-control w-full ">
+                  <label className="label">
+                    <span className="label-text">Specialized Services*</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Specialized Services"
+                    {...register("specializedServices", { required: true })}
+                    className="input input-bordered w-full "
+                    required
+                  />
+                </div>
+                <div className="form-control w-full ">
+                  <label className="label">
+                    <span className="label-text">
+                      Healthcare Professionals*
+                    </span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Healthcare Professionals"
+                    {...register("healthcareProfessionals", { required: true })}
+                    className="input input-bordered w-full "
+                    required
+                  />
+                </div>
+                <div className="form-control w-full ">
+                  <label className="label">
+                    <span className="label-text">Targeted Audience*</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Targeted Audience"
+                    {...register("targetedAudience", { required: true })}
+                    className="input input-bordered w-full "
+                    required
+                  />
+                </div>
+                <div>
+                  <label>Schedule Date:*</label>
+                  <br />
 
-            <div className="grid grid-cols-1  lg:grid-cols-2 gap-5">
-              <div className="form-control w-full ">
-                <label className="label">
-                  <span className="label-text">Camp name*</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Camp name"
-                  {...register("name", { required: true })}
-                  className="input input-bordered w-full"
-                />
-              </div>
-              <div className="form-control w-full">
-                <label className="label">
-                  <span className="label-text">Camp Fees*</span>
-                </label>
-                <input
-                  type="number"
-                  placeholder="Camp Fees"
-                  {...register("Fees", { required: true })}
-                  className="input input-bordered w-full "
-                  required
-                />
-              </div>
-              <div className="form-control w-full ">
-                <label className="label">
-                  <span className="label-text">Venue Location*</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="venue Location"
-                  {...register("venueLocation", { required: true })}
-                  className="input input-bordered w-full "
-                  required
-                />
-              </div>
-              <div className="form-control w-full ">
-                <label className="label">
-                  <span className="label-text">Specialized Services*</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Specialized Services"
-                  {...register("specializedServices", { required: true })}
-                  className="input input-bordered w-full "
-                  required
-                />
-              </div>
-              <div className="form-control w-full ">
-                <label className="label">
-                  <span className="label-text">Healthcare Professionals*</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Healthcare Professionals"
-                  {...register("healthcareProfessionals", { required: true })}
-                  className="input input-bordered w-full "
-                  required
-                />
-              </div>
-              <div className="form-control w-full ">
-                <label className="label">
-                  <span className="label-text">Targeted Audience*</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Targeted Audience"
-                  {...register("targetedAudience", { required: true })}
-                  className="input input-bordered w-full "
-                  required
-                />
-              </div>
-              <div>
-                <label>Schedule Date:*</label>
-                <br />
+                  <Controller
+                    name="scheduleDate"
+                    control={control}
+                    render={({ field }) => (
+                      <DatePicker
+                        className="p-2 rounded-lg w-full border"
+                        selected={field.value}
+                        onChange={(date) => {
+                          field.onChange(date);
+                          handleDateChange(date);
+                        }}
+                        // onChange={handleDateChange}
 
-                <Controller
-                  name="scheduleDate"
-                  control={control}
-                  render={({ field }) => (
-                    <DatePicker
-                      className="p-2 rounded-lg w-full border"
-                      selected={field.value}
-                      onChange={(date) => {
-                        field.onChange(date);
-                        handleDateChange(date);
-                      }}
-                      // onChange={handleDateChange}
-
-                      showTimeSelect
-                      timeFormat="HH:mm"
-                      timeIntervals={15}
-                      dateFormat="MMMM d, yyyy h:mm aa"
-                      placeholderText="Select Date and Time"
-                      minDate={new Date()}
-                    />
-                  )}
+                        showTimeSelect
+                        timeFormat="HH:mm"
+                        timeIntervals={15}
+                        dateFormat="MMMM d, yyyy h:mm aa"
+                        placeholderText="Select Date and Time"
+                        minDate={new Date()}
+                      />
+                    )}
+                  />
+                </div>
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Description*</span>
+                </label>
+                <textarea
+                  {...register("Description", { required: true })}
+                  className="textarea textarea-bordered h-24"
+                  placeholder="Comprehensive Description..."
+                ></textarea>
+              </div>
+              <div className="from-control w-full">
+                <input
+                  {...register("image", { required: true })}
+                  type="file"
+                  className="file-input w-full "
                 />
               </div>
-            </div>
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Description*</span>
-              </label>
-              <textarea
-                {...register("Description", { required: true })}
-                className="textarea textarea-bordered h-24"
-                placeholder="Comprehensive Description..."
-              ></textarea>
-            </div>
-            <div className="from-control w-full">
-              <input
-                {...register("image", { required: true })}
-                type="file"
-                className="file-input w-full "
-              />
-            </div>
-            <button className="btn bg-orange-500">
-              Update
-              {/* <FaUtensils/> */}
-            </button>
-            <button
+              <button className="btn bg-orange-500">
+                Update
+                {/* <FaUtensils/> */}
+              </button>
+              <button
                 className="absolute top-2 right-4"
                 onClick={() => document.getElementById("my_modal_4").close()}
-              >                
+              >
                 <FaWindowClose className="text-2xl" />
               </button>
-          </form>
-        </div>
-      </dialog>
-       
+            </form>
+          </div>
+        </dialog>
       </div>
     </div>
   );
