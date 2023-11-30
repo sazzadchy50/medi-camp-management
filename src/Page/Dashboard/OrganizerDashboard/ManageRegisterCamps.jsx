@@ -3,7 +3,6 @@ import { useQuery } from "@tanstack/react-query";
 import useSecureApi from "../../../Hook/useSecureApi";
 
 const ManageRegisterCamps = () => {
-
   const secureApi = useSecureApi();
   const { data: camp = [] } = useQuery({
     queryKey: ["camp"],
@@ -13,7 +12,7 @@ const ManageRegisterCamps = () => {
     },
   });
   console.log(camp);
-  
+
   const [fees, setFees] = useState(null);
   const [campId, setCampId] = useState();
   return (
@@ -25,7 +24,6 @@ const ManageRegisterCamps = () => {
             <th>Name</th>
             <th>Date and Time</th>
             <th>Venue </th>
-
             <th>Fees</th>
             <th>payment Status</th>
             <th>Confirm Status</th>
