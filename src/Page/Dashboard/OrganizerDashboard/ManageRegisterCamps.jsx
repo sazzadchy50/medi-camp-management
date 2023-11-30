@@ -1,43 +1,36 @@
-;
+import { useState } from "react";
+import useCampData from "../../../Hook/useCampData";
 
+ 
 const ManageRegisterCamps = () => {
+    const [camp, refetch] = useCampData();
+    const [fees, setFees] = useState(null);
+   
+    const [campId, setCampId] = useState();
     return (
         <div>
              <table className="table w-full table-pin-rows">
           {/* head */}
           <thead>
-            <tr>
-              <th>image</th>
+            <tr>              
               <th>Name</th>
-              <th>Venue Location </th>
-              <th>Date and Time </th>
-              <th>Specialized Services</th>
-              <th>Targeted Audience</th>
+              <th>Date and Time</th>
+              <th>Venue </th>
+              
               <th>Fees</th>
-              <th>Join Camp</th>
-              <th>Details</th>
+              <th>payment Status</th>
+              <th>Confirm Status</th>
+              <th>Cancel</th>
             </tr>
           </thead>
           <tbody>
             {camp.map((item) => (
               <tr key={item._id}>
-                <td>
-                  <div className="avatar">
-                    <div className="mask mask-squircle w-12 h-12">
-                      <img
-                        src={item.image}
-                        alt="Avatar Tailwind CSS Component"
-                      />
-                    </div>
-                  </div>
-                </td>
+               
                 <td>{item.name}</td>
-                <td>{item.venueLocation}</td>
                 <td>{item.dateTime}</td>
-                <td>{item.specializedServices}</td>
-                <td>{item.targetedAudience}</td>
+                <td>{item.venueLocation}</td>               
                 <td>{item.fees}</td>
-
                 <th>
                   <button
                     className="btn btn-success text-white btn-xs "
@@ -53,9 +46,17 @@ const ManageRegisterCamps = () => {
                 <th>
                   <button
                     className="btn btn-info text-white btn-xs"
-                    onClick={() => handleDelete(item)}
+                   
                   >
-                    Delete
+                    Confirm
+                  </button>
+                </th>
+                <th>
+                  <button
+                    className="btn btn-info text-white btn-xs"
+                   
+                  >
+                    Cancel
                   </button>
                 </th>
               </tr>
