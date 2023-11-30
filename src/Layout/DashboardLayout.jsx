@@ -7,12 +7,13 @@ import {
   FaRegAddressBook,
   FaRegListAlt,
   FaStar,
- FaUser,
+  FaUser,
 } from "react-icons/fa";
+import useAuth from "../Hook/useAuth";
 
 const DashboardLayout = () => {
   // const [isAdmin] = useAdmin();
-
+  const { user } = useAuth();
   const organizer = true;
   // const participant = true;
   const participant = false;
@@ -83,7 +84,7 @@ const DashboardLayout = () => {
           ></label>
           <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
             {/* Sidebar content here */}
-            {organizer ? (
+            {user.role === "organizer" ? (
               <>
                 <li>
                   <NavLink to="/dashboard/organizer-profile">
@@ -110,7 +111,7 @@ const DashboardLayout = () => {
                   </NavLink>
                 </li>
               </>
-            ) : participant ? (
+            ) : user.role === " participant" ? (
               <>
                 <li>
                   <NavLink to="/dashboard/participant-profile">
@@ -120,7 +121,7 @@ const DashboardLayout = () => {
                 </li>
                 <li>
                   <NavLink to="/dashboard/register-camps">
-                  <FaRegAddressBook />
+                    <FaRegAddressBook />
                     Register Camps
                   </NavLink>
                 </li>
@@ -137,7 +138,7 @@ const DashboardLayout = () => {
                   </NavLink>
                 </li>
               </>
-            ) : healthProfessional ? (
+            ) : user.role === " healthProfessional" ? (
               <>
                 <li>
                   <NavLink to="/dashboard/professional-management">
