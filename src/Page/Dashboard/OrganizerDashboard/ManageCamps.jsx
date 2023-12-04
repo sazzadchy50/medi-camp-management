@@ -10,6 +10,8 @@ import usePublicApi from "../../../Hook/usePublicApi";
 import useSecureApi from "../../../Hook/useSecureApi";
 import Swal from "sweetalert2";
 import useAuth from "../../../Hook/useAuth";
+import ClockLoader from "react-spinners/ClockLoader";
+
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 const ManageCamps = () => {
@@ -20,11 +22,12 @@ const ManageCamps = () => {
   const [fees, setFees] = useState(null);
   const [campName, setCampName] = useState();
   const [campId, setCampId] = useState();
+  const [selectedItem, setSelectedItem] = useState(null);
 
   const publicApi = usePublicApi();
   const secureApi = useSecureApi();
-  const { user } = useAuth();
-
+  const { user, loading } = useAuth();
+  const {id} = useParams()
   const handleDelete = (item) => {
     Swal.fire({
       title: "Are you sure?",
@@ -82,17 +85,20 @@ const ManageCamps = () => {
           image: res.data.data.display_url,
           email: user?.email,
         };
-
         const campRes = await secureApi.patch(
-          `/dashboard/update-camp/${campId}`,
+          "/dashboard/update-camp",
           campData
         );
+        // const campRes = await secureApi.patch(
+        //   `/dashboard/update-camp/${id}`,
+        //   campData
+        // );
         console.log("campRes", campRes);
-        if (campRes.data.insertedId) {
+        if (campRes.data.modifiedCount > 0) {
           Swal.fire({
             position: "top-middle",
             icon: "success",
-            title: `${data.name} added to camp successfully`,
+            title: `${data.name} update successfully`,
             showConfirmButton: false,
             timer: 1500,
           });
@@ -100,6 +106,28 @@ const ManageCamps = () => {
         }
       }
     }
+  };
+
+  const openModal = (item) => {
+    console.log(item);
+    setSelectedItem(item);
+    setFees(item.fees);
+    setCampId(item._id);
+
+  
+    reset({
+      name: item.name,
+      Fees: item.fees,
+      venueLocation: item.venueLocation,
+      specializedServices: item.specializedServices,
+      healthcareProfessionals: item.professionals,
+      targetedAudience: item.targetedAudience,
+      
+      Description: item.description,
+
+    });
+
+    document.getElementById("my_modal_4").showModal();
   };
 
   const formatDate = (dateTimeString) => {
@@ -144,47 +172,63 @@ const ManageCamps = () => {
             </tr>
           </thead>
           <tbody>
-            {camp.map((item) => (
-              <tr key={item._id}>
-                <td>
-                  <div className="avatar">
-                    <div className="mask mask-squircle w-12 h-12">
-                      <img
-                        src={item.image}
-                        alt="Avatar Tailwind CSS Component"
-                      />
+            {loading ? (
+              <div className="mt-10 ">
+                <ClockLoader
+                  color="#36d65e"
+                  cssOverride={{
+                    item: "center",
+                  }}
+                  loading
+                  size={100}
+                  speedMultiplier={10}
+                />
+              </div>
+            ) : (
+              camp.map((item) => (
+                <tr key={item._id}>
+                  <td>
+                    <div className="avatar">
+                      <div className="mask mask-squircle w-12 h-12">
+                        <img
+                          src={item.image}
+                          alt="Avatar Tailwind CSS Component"
+                        />
+                      </div>
                     </div>
-                  </div>
-                </td>
-                <td>{item.name}</td>
-                <td>{item.venueLocation}</td>
-                <td>{item.dateTime}</td>
-                <td>{item.specializedServices}</td>
-                <td>{item.targetedAudience}</td>
-                <td>{item.fees}</td>
+                  </td>
+                  <td>{item.name}</td>
+                  <td>{item.venueLocation}</td>
+                  <td>{item.dateTime}</td>
+                  <td>{item.specializedServices}</td>
+                  <td>{item.targetedAudience}</td>
+                  <td>{item.fees}</td>
 
-                <th>
-                  <button
-                    className="btn btn-success text-white btn-xs "
-                    onClick={() => {
-                      setFees(item.fees);
-                      document.getElementById("my_modal_4").showModal();
-                      setCampId(item._id);
-                    }}
-                  >
-                    Update
-                  </button>
-                </th>
-                <th>
-                  <button
-                    className="btn btn-info text-white btn-xs"
-                    onClick={() => handleDelete(item)}
-                  >
-                    Delete
-                  </button>
-                </th>
-              </tr>
-            ))}
+                  <th>
+                    <button
+                      className="btn btn-success text-white btn-xs "
+                      onClick={() => {
+                        setFees(item.fees);
+                        document.getElementById("my_modal_4").showModal();
+                        setCampId(item._id);
+                        setCampName(item.name)
+                        openModal(item)
+                      }}
+                    >
+                      Update
+                    </button>
+                  </th>
+                  <th>
+                    <button
+                      className="btn btn-info text-white btn-xs"
+                      onClick={() => handleDelete(item)}
+                    >
+                      Delete
+                    </button>
+                  </th>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
         {/* modal for update */}

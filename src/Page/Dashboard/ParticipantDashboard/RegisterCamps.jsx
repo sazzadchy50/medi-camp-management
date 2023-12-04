@@ -3,8 +3,9 @@ import { useQuery } from "@tanstack/react-query";
 import useSecureApi from "../../../Hook/useSecureApi";
 import ClockLoader from "react-spinners/ClockLoader";
 import useAuth from "../../../Hook/useAuth";
+import { Helmet } from "react-helmet";
 
-const ManageRegisterCamps = () => {
+const RegisterCamps = () => {
   const secureApi = useSecureApi();
   const { loading } = useAuth();
   const { data: camp = [] } = useQuery({
@@ -14,14 +15,16 @@ const ManageRegisterCamps = () => {
       return result.data;
     },
   });
-
   console.log(camp);
-
+  console.log(camp);
 
   const [fees, setFees] = useState(null);
   const [campId, setCampId] = useState();
   return (
     <div>
+      <Helmet>
+        <title>medi-camp-management | Register Camps</title>
+      </Helmet>
       <table className="table w-full table-pin-rows">
         {/* head */}
         <thead>
@@ -60,11 +63,11 @@ const ManageRegisterCamps = () => {
                     className="btn btn-success text-white btn-xs "
                     onClick={() => {
                       setFees(item.fees);
-                      
+                      document.getElementById("my_modal_4").showModal();
                       setCampId(item._id);
                     }}
                   >
-                    Update
+                    pending
                   </button>
                 </th>
                 <th>
@@ -86,4 +89,4 @@ const ManageRegisterCamps = () => {
   );
 };
 
-export default ManageRegisterCamps;
+export default RegisterCamps;

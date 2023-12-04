@@ -14,6 +14,13 @@ import ManageCamps from "../Page/Dashboard/OrganizerDashboard/ManageCamps";
 import ErrorPage from "../Page/Error/ErrorPage";
 import UpdateCamp from "../Page/Dashboard/OrganizerDashboard/UpdateCamp";
 import ManageRegisterCamps from "../Page/Dashboard/OrganizerDashboard/manageRegisterCamps";
+import PrivateRoute from "./PrivateRoute";
+import OrganizerProfileManager from "../Page/Dashboard/OrganizerDashboard/OrganizerProfileManager";
+import ContactUs from "../Page/Contact US/ContactUs";
+import RegisterCamps from "../Page/Dashboard/ParticipantDashboard/RegisterCamps";
+import PaymentHistory from "../Page/Dashboard/ParticipantDashboard/PaymentHistory";
+import FeedBackAndRating from "../Page/Dashboard/ParticipantDashboard/FeedBackAndRating";
+import HealthProfessional from "../Page/Dashboard/HealthProfessional/HealthProfessional";
 
 export const router = createBrowserRouter([
   {
@@ -34,20 +41,22 @@ export const router = createBrowserRouter([
       },
       {
         path: "available-camp",
-        element: <AvailableCamp />,
+        element: <PrivateRoute><AvailableCamp /></PrivateRoute>,
       },
       {
         path: "camp-details/:id",
         element: <CampDetails />,
       },
+      {
+        path: "contactUs",
+        element: <ContactUs/>
+      }
     ],
   },
   {
     path: "/dashboard",
-    element: <DashboardLayout />,
+    element: <PrivateRoute><DashboardLayout /></PrivateRoute>,
     children: [
-      {},
-
       //organizer route
       {
         path: "add-a-camp",
@@ -60,15 +69,41 @@ export const router = createBrowserRouter([
       {
         path: "manage-registered-camps",
       element:<ManageRegisterCamps/>
+      },
+      {
+        path: "organizer-profile",
+        element: <OrganizerProfileManager/>
+      },
+
+
+      //Participant
+      {
+        path:"register-camps",
+        element: <RegisterCamps/>
+      },
+      {
+        path:"payment-history",
+        element:<PaymentHistory/>
+      },
+      {
+        path: "feedback-and-ratings",
+        element: <FeedBackAndRating/>
+      },
+      {
+        path: "participant-profile",
+        element: <participantPrp/>
+      },
+
+      //Healh professional
+
+      {
+        path:"professional-profile",
+        element: <HealthProfessional/>
       }
-      // {
-      //   path: "update-camp/:id",
-      //   element: <UpdateCamp/>
-
-      // }
+   
 
 
-      // participent Route 
+
       
     ],
   },

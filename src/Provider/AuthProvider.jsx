@@ -59,7 +59,8 @@ const updateUserProfile = (name, photo)=>{
         googleSignIn,
         logOut,
         user,
-        updateUserProfile
+        updateUserProfile,
+        loading
     }
     return (
        <AuthContext.Provider value={authInfo}>

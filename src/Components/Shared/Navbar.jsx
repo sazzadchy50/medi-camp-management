@@ -4,7 +4,7 @@ import logo from "../../../src/assets/cover.png";
 
 
 const Navbar = () => {
-  const { user, logOut } = useAuth();
+  const { user, logOut , loading} = useAuth();
 
   const navigate = useNavigate();
 
@@ -41,6 +41,7 @@ const Navbar = () => {
   };
 
   return (
+  
     <div className="navbar bg-base-100 flex justify-between">
       <div className="">
         <Link to="/">

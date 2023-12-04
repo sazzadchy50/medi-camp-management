@@ -4,7 +4,7 @@ import { FaWindowClose } from "react-icons/fa"
 import useSecureApi from '../../Hook/useSecureApi';
 import Swal from 'sweetalert2';
 import useAuth from '../../Hook/useAuth';
-const RegistrationModal = ({fees, campId, campName}) => {
+const RegistrationModal = ({fees, campId, campName,venueLocation, dateTime}) => {
     console.log(fees);
     const { register, handleSubmit , reset} = useForm();
     const [submitted, setSubmitted] = useState(false);
@@ -27,10 +27,12 @@ const RegistrationModal = ({fees, campId, campName}) => {
               fees: fees, 
               requirement: data.requirement,
               campId : campId,
-              campName: campName
+              campName: campName,
+              venueLocation: venueLocation,
+              dateTime: dateTime,
 
              }
-        
+             
              const res = await SecureApi.post('camp-register', registerData)
         
              if(res.data.insertedId){

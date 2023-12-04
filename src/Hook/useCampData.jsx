@@ -5,7 +5,7 @@ const useCampData = () => {
   const SecureApi = useSecureApi();
 //   const { user } = useAuth();
 
-const {data: camp=[] , refetch} = useQuery({
+const {data: camp=[] , refetch, isPending: isLoading} = useQuery({
     queryKey: ['camp'],
     queryFn: async()=>{
         const res = await SecureApi.get(`/camp`)
@@ -14,7 +14,7 @@ const {data: camp=[] , refetch} = useQuery({
     }
 })
  console.log(camp);
-  return [camp, refetch]
+  return [camp, refetch, isLoading]
 };
 
 export default useCampData;

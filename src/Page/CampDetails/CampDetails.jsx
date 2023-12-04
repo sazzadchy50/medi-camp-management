@@ -87,7 +87,7 @@ const CampDetails = () => {
           </div>
         </div>
       </div>
-      <RegistrationModal fees={fees} campId={_id} campName={name} />
+      <RegistrationModal fees={fees} campId={_id} campName={name} venueLocation={venueLocation} dateTime={dateTime}/>
     </div>
   );
 };
