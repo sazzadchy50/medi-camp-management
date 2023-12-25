@@ -24,7 +24,7 @@ const ManageRegisterCamps = () => {
     <div>
       <table className="table w-full table-pin-rows">
         {/* head */}
-        <thead>
+        <thead className="z-0">
           <tr>
             <th>Name</th>
             <th>Date and Time</th>
@@ -64,7 +64,7 @@ const ManageRegisterCamps = () => {
                       setCampId(item._id);
                     }}
                   >
-                    Update
+                    Pending
                   </button>
                 </th>
                 <th>

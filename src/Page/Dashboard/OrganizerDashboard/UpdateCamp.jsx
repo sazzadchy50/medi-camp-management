@@ -54,8 +54,6 @@ const UpdateCamp = () => {
     //   setSubmitted(false)
     //   reset();
     //  }
-
-    console.log(registerData);
   };
   const handleDateChange = (date) => {
     const timeString = date.toLocaleTimeString("en-US", {

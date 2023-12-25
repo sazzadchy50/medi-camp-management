@@ -9,9 +9,9 @@ const Home = () => {
             <Banner></Banner>
             <PopularCamps/>
             <AboutUs/>
-            <RequestACamp/>
+           
             <Feedback/>
-            
+            <RequestACamp/>
         </div>
     );
 };

@@ -22,6 +22,8 @@ import PaymentHistory from "../Page/Dashboard/ParticipantDashboard/PaymentHistor
 import FeedBackAndRating from "../Page/Dashboard/ParticipantDashboard/FeedBackAndRating";
 import HealthProfessional from "../Page/Dashboard/HealthProfessional/HealthProfessional";
 
+import AddUpComingCamp from "../Page/Dashboard/OrganizerDashboard/AddUpCommingCamp";
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -61,6 +63,10 @@ export const router = createBrowserRouter([
       {
         path: "add-a-camp",
         element: <AddCamp />,
+      },
+      {
+        path: "add-Upcoming-camp",
+        element: <AddUpComingCamp />,
       },
       {
         path: "manage-camps",

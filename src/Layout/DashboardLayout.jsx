@@ -37,7 +37,6 @@ const DashboardLayout = () => {
         document.body.classList.remove("overflow-hidden");
       }
     };
-
     window.addEventListener("scroll", handleScroll);
 
     return () => {
@@ -49,7 +48,7 @@ const DashboardLayout = () => {
     setIsDrawerOpen(!isDrawerOpen);
   };
   return (
-    <div className="flex h-full">
+  <div className="flex h-full z-50">
       {/* NEW */}
       {/* <div className="drawer lg:drawer-open "> */}
 
@@ -57,31 +56,31 @@ const DashboardLayout = () => {
         <input
           id="my-drawer-2"
           type="checkbox"
-          className="drawer-toggle"
+          className="drawer-toggle "
           checked={isDrawerOpen}
           onChange={toggleDrawer}
         />
 
-        <div className="drawer-content flex flex-col  justify-center">
-          {/* Page content here */}
+        <div className="drawer-content flex flex-col  justify-center ">
           <label
             htmlFor="my-drawer-2"
-            className="btn justify-start drawer-button lg:hidden"
+            className="btn justify-start drawer-button lg:hidden w-14"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
-              className="inline-block w-6 h-6 stroke-current"
+              className="inline-block  w-10 stroke-current"
             >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
-                d="M4 6h16M4 12h16M4 18h16 w-10"
+                d="M4 6h16M4 12h16M4 18h16 "
               ></path>
             </svg>
           </label>
+
           <div className="flex-1 p-8 ">
             <Outlet></Outlet>
           </div>
@@ -93,25 +92,25 @@ const DashboardLayout = () => {
             className="drawer-overlay"
           ></label>
           <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
-            {/* Sidebar content here */}
+            {/* Sidebar content */}
             {loading ||
             isOrganizerLoading ||
             isParticipantLoading ||
             isHealthProfessionalLoading ? (
               <div className="mt-10 ">
-              <ClockLoader
-                color="#36d65e"
-                cssOverride={{
-                  item: "center",
-                }}
-                loading
-                size={100}
-                speedMultiplier={10}
-              />
-            </div>
+                <ClockLoader
+                  color="#36d65e"
+                  cssOverride={{
+                    item: "center",
+                  }}
+                  loading
+                  size={100}
+                  speedMultiplier={10}
+                />
+              </div>
             ) : (
               <>
-                {isParticipant.participant && (
+                {isParticipant?.participant && (
                   <>
                     <li>
                       <NavLink to="/dashboard/participant-profile">
@@ -140,7 +139,7 @@ const DashboardLayout = () => {
                   </>
                 )}
 
-                {isOrganizer.organizer && (
+                {isOrganizer?.organizer && (
                   <>
                     <li>
                       <NavLink to="/dashboard/organizer-profile">
@@ -152,6 +151,12 @@ const DashboardLayout = () => {
                       <NavLink to="/dashboard/add-a-camp">
                         <FaHandHoldingMedical />
                         Add Camp
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink to="/dashboard/add-Upcoming-camp">
+                        <FaHandHoldingMedical />
+                        Add Upcoming Camp
                       </NavLink>
                     </li>
                     <li>
@@ -168,7 +173,7 @@ const DashboardLayout = () => {
                     </li>
                   </>
                 )}
-                {isHealthProfessional.healthProfessional && (
+                {isHealthProfessional?.healthProfessional && (
                   <>
                     <li>
                       <NavLink to="/dashboard/professional-management">
@@ -188,80 +193,6 @@ const DashboardLayout = () => {
                 </li>
               </>
             )}
-
-            {/* {loading ? (
-              <p>loading...</p>
-            ) : isParticipant === '? (
-              <>
-                <li>
-                  <NavLink to="/dashboard/participant-profile">
-                    <FaUser />
-                    Participant Profile Management
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/dashboard/register-camps">
-                    <FaRegAddressBook />
-                    Register Camps
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/dashboard/payment-history">
-                    <FaList />
-                    Payment History
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/dashboard/feedback-and-ratings">
-                    <FaStar />
-                    Feedback and Ratings
-                  </NavLink>
-                </li>
-              </>
-            ) : isOrganizer === '? (
-              <>
-                <li>
-                  <NavLink to="/dashboard/organizer-profile">
-                    <FaUser />
-                    Organizer Profile Management
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/dashboard/add-a-camp">
-                    <FaHandHoldingMedical />
-                    Add Camp
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/dashboard/manage-camps">
-                    <FaList />
-                    Manage Camps
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/dashboard/manage-registered-camps">
-                    <FaRegListAlt />
-                    Manage Register Camps
-                  </NavLink>
-                </li>
-              </>
-            ) : isHealthProfessional === 'true'? (
-              <>
-                <li>
-                  <NavLink to="/dashboard/professional-management">
-                    <FaUser />
-                    Professionals Profile Manager
-                  </NavLink>
-                </li>
-              </>
-            ) : null} */}
-            {/* <div className="divider"></div>
-            <li>
-              <NavLink to="/">
-                <FaHome />
-                Home
-              </NavLink>
-            </li> */}
           </ul>
         </div>
       </div>

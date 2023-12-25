@@ -36,6 +36,14 @@ const Login = () => {
       })
       .catch((error)=>{
         console.log(error.message);
+       
+        Swal.fire({
+          position: "top-middle",
+          icon: "error",
+          text: "email or password invalid",
+          showConfirmButton: false,
+          timer: 1500,
+        });
       })
     }
     
@@ -75,7 +83,7 @@ const Login = () => {
                   />
                  
                 </div>
-               
+
                 <div className="form-control mt-6">
                   <button className="btn btn-primary">Login</button>
                 </div>

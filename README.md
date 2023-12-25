@@ -1,15 +1,16 @@
-
-website name: Medi-camp-management
-website link:  https://medi-camp-management.web.app/
+website name: Medi-camp-management,
+website link: https://medi-camp-management.web.app/
 
 features and functionalities
+
+- Users can submit special requests for unique requirements during medical camps, bringing exceptional flexibility to our Medical Camp Management System.
 
 - Profile: Users can see their name, and email in the nav section.
 
 - Login: The user can log in with email, password, and Google account.
 
 - Responsive: This website is designed to be used with different devices like mobile and tablets.
-- Camp register: user can register camp 
+- Camp register: user can register camp
 
 - Add camp: Organizer can add camp in add camp page under dashboard.
 

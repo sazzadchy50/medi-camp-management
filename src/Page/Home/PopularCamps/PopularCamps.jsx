@@ -48,34 +48,34 @@ const PopularCamps = () => {
                 <h2 className="card-title text-2xl font-bold">{item.name}</h2>
                 <p>
                   <span className="text-lg font-bold ">Venue Location :</span>
-                  <p>{item.venueLocation}</p>
+                  <span>{item.venueLocation}</span>
                 </p>
                 <p>
                   <span className="text-lg font-bold ">Date and Time :</span>
-                  <p>{formatDate(item.dateTime)}</p>
+                  <span>{formatDate(item.dateTime)}</span>
                 </p>
                 <p>
                   <span className="text-lg font-bold ">
                     Specialized Services :
                   </span>
-                  <p>{item.specializedServices}</p>
+                  <span>{item.specializedServices}</span>
                 </p>
                 <p>
                   <span className="text-lg font-bold ">
                     Targeted Audience :
                   </span>
-                  <p>{item.targetedAudience}</p>
+                  <span>{item.targetedAudience}</span>
                 </p>
                 <p>
                   <span className="text-lg font-bold ">Description :</span>
-                  <p>{item.description}</p>
+                  <span>{item.description}</span>
                 </p>
                 <p>
                   <span className="text-lg font-bold ">Fees :</span>
-                  <p className="text-xl">
+                  <span className="text-xl">
                     <span className="text-orange-500">$ </span>
                     {item.fees}
-                  </p>
+                  </span>
                 </p>
                 <div className="w-full">
                   <Link to={`/camp-details/${item._id}`}>

@@ -155,7 +155,7 @@ const ManageCamps = () => {
   };
   return (
     <div>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto p-5">
         <table className="table w-full table-pin-rows">
           {/* head */}
           <thead>
